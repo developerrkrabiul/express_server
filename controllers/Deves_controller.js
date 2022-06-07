@@ -49,7 +49,7 @@ const CreateDeve = (req, res) =>{
 
     fs.writeFileSync(path.join(__dirname, '../data/deves.json'), JSON.stringify(deves));
 
-    res.json({
+    res.status(202).json({
         message : 'New deve Created'
     })
 };
@@ -57,7 +57,22 @@ const CreateDeve = (req, res) =>{
 
 // Get Edit Deves
 const editDeve = (req, res) =>{
-    res.send('Edit deve')
+
+    let id = req.params.id;
+    let {name, age, skill} = req.body;
+
+
+    deves[deves.findIndex(data => data.id == id)] = {
+        id      : id,
+        name    : name,
+        skill   : skill,
+        age     : age
+
+    }
+    fs.writeFileSync(path.join(__dirname, '../data/deves.json'), JSON.stringify(deves));
+    res.status(202).json({
+        message : 'Deves Edit Data successful '
+    })
 };
 
 
